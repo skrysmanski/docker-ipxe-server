@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ipxe-server:
+    build: .
+    environment:
+      - PXE_DHCP_SUBNET=192.168.178.0
+      - IPXE_BOOT_URL=http://192.168.178.244/boot.ipxe
+    ports:
+      - "67:67/udp"
+      - "69:69/udp"
+      - "4011:4011/udp"
+    network_mode: "host"
+
