@@ -2,12 +2,13 @@
 
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y dnsmasq
+RUN apt-get update && apt-get install -y --no-install-recommends dnsmasq moreutils
 
 COPY files /
 
-#ENV PXE_DHCP_SUBNET 192.168.178.0
-#ENV IPXE_BOOT_URL http://192.168.178.244/boot.ipxe
+ENV PXE_INTERFACE=eth0 \
+    IPXE_BOOT_URL_PATH=/boot.ipxe \
+    IPXE_HTTP_PORT=80
 
 # All ports are UDP ports
 EXPOSE 67 69 4011

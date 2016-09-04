@@ -1,10 +1,18 @@
 version: '2'
 services:
+  ipxe-http-server:
+    build: ipxe-http-server/
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/srv/ipxe:/srv"
+
   ipxe-server:
-    build: .
+    build: ipxe-server/
     environment:
-      - PXE_DHCP_SUBNET=192.168.178.0
-      - IPXE_BOOT_URL=http://192.168.178.244/boot.ipxe
+      - PXE_INTERFACE=eth0
+      - IPXE_BOOT_URL_PATH=/boot.ipxe
+      - IPXE_HTTP_PORT=3000
     ports:
       - "67:67/udp"
       - "69:69/udp"
